@@ -7,24 +7,52 @@
 <head>
 	<title>Home</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script>
+
+	$(document).on('click','#getList',function(e){
+		e.preventDefault();
+		var t = document.getElementById("code");
+		console.log(t);
+		var test = document.getElementById("searchType");
+		var url ="${pageContext.request.contextPath}/";
+		url = url + "?corp_code=" + $('#code').val();
+		url = url + "?bgn_de=" + $('#startDate').val();
+		url = url + "?end_de=" + $('#endDate').val();
+		url = url + "?pblntf_ty=A?pblntf_detail_ty=" + test.options[document.getElementById("searchType").selectedIndex].value;
+		location.href = url;
+		console.log(url);
+	});
+		
+	
+</script>
 <body>
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<form role="form">
+			<select class="form-control form-control-sm" name="searchType" id="searchType">
+				<option value="A001">사업보고서</option>
+				<option value="A002">반기보고서</option>
+				<option value="A003">분기보고서</option>
+			</select>
+
 				<div class="form-group">
 					<label for="InputName">
-						기업명
+						기업코드
 					</label>
-					<input type="text" class="form-control" id="InputName" />
+					<input type="text" class="form-control" id="code" name="code" value="test"/>
 				</div>
 				<div class="form-group">
 					<label for="InputDate">
 						조회날짜
 					</label>
-					<input type="date" class="form-control" id="InputDate" /> ~ <input type="date" class="form-control" id="InputDate" />
+					<input type="date" class="form-control" id="startDate" name="startDate"/> ~ <input type="date" class="form-control" id="endDate" name="endDate" />
 				</div>
+				<div>
+					<button class="btn btn-sm btn-primary" name="getList" id="getList">조회</button>
+				</div>
+			<form role="form">
 				<div class="form-group">
 					 
 					<label for="exampleInputFile">
@@ -44,5 +72,9 @@
 		결과부분
 	</div>
 </div>
+
+
 </body>
 </html>
+
+
