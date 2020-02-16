@@ -31,27 +31,33 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<select class="form-control form-control-sm" name="searchType" id="searchType">
-				<option value="A001">사업보고서</option>
-				<option value="A002">반기보고서</option>
-				<option value="A003">분기보고서</option>
-			</select>
-
+			<form:form commandName="searchDTO" action="getList">
+				<div class="form-group">
+					<form:select path="pblntf_detail_ty" id="searchType" class="form-control form-control-sm">
+						<option value="A">전체</option>
+						<option value="A001">사업보고서</option>
+						<option value="A002">반기보고서</option>
+						<option value="A003">분기보고서</option>
+					</form:select>
+				</div>
 				<div class="form-group">
 					<label for="InputName">
 						기업코드
 					</label>
-					<input type="text" class="form-control" id="code" name="code" value="test"/>
+					<form:input path="corp_code" id="corp_code" class="form-control"/>
 				</div>
 				<div class="form-group">
 					<label for="InputDate">
 						조회날짜
 					</label>
-					<input type="date" class="form-control" id="startDate" name="startDate"/> ~ <input type="date" class="form-control" id="endDate" name="endDate" />
+					
+					<input type="date" class="form-control" id="dgn_de" name="dgn_de"/> ~ <input type="date" class="form-control" id="end_de" name="end_de" />
 				</div>
 				<div>
 					<button class="btn btn-sm btn-primary" name="getList" id="getList">조회</button>
+					<input class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" value="Sign in"> 
 				</div>
+			</form:form>
 			<form role="form">
 				<div class="form-group">
 					 
