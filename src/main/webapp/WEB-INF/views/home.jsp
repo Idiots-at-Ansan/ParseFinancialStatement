@@ -54,28 +54,10 @@
 					<input type="date" class="form-control" id="dgn_de" name="dgn_de"/> ~ <input type="date" class="form-control" id="end_de" name="end_de" />
 				</div>
 				<div>
-					<button class="btn btn-sm btn-primary" name="getList" id="getList">조회</button>
 					<input class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" value="Sign in"> 
 				</div>
 			</form:form>
-			<form role="form">
-				<div class="form-group">
-					 
-					<label for="exampleInputFile">
-						다운받은 파일 목록 (조회날짜 내 등록된 재무제표 등록)
-					</label>
-					<div>
-						
-					</div>
-				</div>
-				<button type="submit" class="btn btn-primary">
-					선택조회
-				</button>
-			</form>
 		</div>
-	</div>
-	<div class="col-md-12">
-		결과부분
 	</div>
 </div>
 

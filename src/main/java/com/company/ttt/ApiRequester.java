@@ -12,10 +12,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.company.dto.SearchDTO;
+import com.company.dto.SearchResultDTO;
+
 
 @Controller
 public class ApiRequester {
@@ -30,7 +33,7 @@ public class ApiRequester {
 	private String api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?=" + api_key;// + "&rcept_no=%s&reprt_code=%s";
 	static public String test_api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011";
 	@RequestMapping(value="getList")
-	public String test(@ModelAttribute("searchDTO")SearchDTO searchDTO) throws Exception {
+	public String test(@ModelAttribute("searchDTO")SearchDTO searchDTO, Model model) throws Exception {
 		System.out.println("code : " + searchDTO.getCorp_code());
 		System.out.println("type : " + searchDTO.getPblntf_detail_ty());
 		System.out.println("stDate : " + searchDTO.getDgn_de());
@@ -53,8 +56,24 @@ public class ApiRequester {
 		System.out.println(url);
 		String result_json = this.Requester(url);
 		System.out.print(result_json);
+		JsonParser parser = new JsonParser();
+		SearchResultDTO result_obj = parser.test(result_json);
+		
+		
+		/*
+		 * DB INSERT {
+		 * 
+		 * }
+		*/
+//		searchTest(result_json);
 		return "test";
-	
+	}
+
+	@RequestMapping(value="test")
+	public String test(@ModelAttribute("result_json")String result_json){
+		logger.info("Test");
+		System.out.println("-----------------"+result_json);
+		return "test";
 	}
 	
 	public String Requester(String uri) throws ClientProtocolException, IOException {
@@ -72,7 +91,7 @@ public class ApiRequester {
 		reader.close();
 		httpClient.close();
 		//System.out.println(response.toString());
-		logger.info(response.toString());
+		logger.info("test : "+response.toString());
 		return response.toString();
 	}
 	

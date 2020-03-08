@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.company.ttt.service.HomeService;
+
 import com.company.dto.SearchDTO;
 import com.company.dto.SearchItemDTO;
 import com.company.dto.SearchResultDTO;
@@ -101,7 +101,6 @@ public class HomeController {
 		return "home";
 		//return "test";
 	}
-	
 	
 //	@RequestMapping(value="getList",method = RequestMethod.POST) 
 //	public String getList(@ModelAttribute("searchDTO")SearchDTO searchDTO) throws Exception {
