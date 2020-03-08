@@ -11,6 +11,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +25,10 @@ import com.company.dto.SearchResultDTO;
 
 @Controller
 public class ApiRequester {
+	
+	@Autowired
+	private MongoTemplate mongoTemplate;
+	
 	private static final Logger logger = LoggerFactory.getLogger(ApiRequester.class);
 	private String api_key = "crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff";
 	
@@ -65,6 +72,9 @@ public class ApiRequester {
 		 * 
 		 * }
 		*/
+		MongoOperations mongoOps = (MongoOperations)mongoTemplate;
+		mongoOps.save(result_obj);
+		
 //		searchTest(result_json);
 		return "test";
 	}
