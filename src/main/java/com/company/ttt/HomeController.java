@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.company.ttt.service.HomeService;
-import com.copany.dto.SearchDTO;
+import com.company.dto.SearchDTO;
 import com.company.dto.SearchItemDTO;
 import com.company.dto.SearchResultDTO;
 import javax.servlet.http.*;
@@ -61,7 +61,7 @@ public class HomeController {
         }
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/philip", method = RequestMethod.GET)
 	public String home_philip(Model model) throws IOException, IllegalAccessException, NoSuchFieldException {
 		/*
 		ApiRequester tester = new ApiRequester();
@@ -76,10 +76,12 @@ public class HomeController {
 		
 		//return "home";
 		 */
-		JsonParser parser = new JsonParser();
-		SearchResultDTO result = parser.test(JsonParser.test_val);
-		getMemberFields(result);
-		
+		//JsonParser parser = new JsonParser();
+		//SearchResultDTO result = parser.test(JsonParser.test_val);
+		//getMemberFields(result);
+		ApiRequester tester = new ApiRequester();
+		String xbrl_log = tester.Requester(ApiRequester.test_api_get_xbrl_uri);
+		logger.info(xbrl_log);
 		return "test";
 	}
 	
