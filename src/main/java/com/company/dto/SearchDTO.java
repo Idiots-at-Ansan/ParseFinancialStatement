@@ -1,4 +1,4 @@
-package com.copany.dto;
+package com.company.dto;
 
 public class SearchDTO {
 	
