@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 import com.company.dto.SearchDTO;
 import com.company.dto.SearchItemDTO;
 import com.company.dto.SearchResultDTO;

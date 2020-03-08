@@ -28,6 +28,4 @@
 	 	<constructor-arg ref="mongo"/>
 	 	<constructor-arg name ="databaseName" value="idiots"/>	
 	 </bean>
-	 
-	 
 </beans>

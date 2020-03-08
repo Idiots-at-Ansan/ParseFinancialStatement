@@ -3,10 +3,13 @@ package com.company.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection="SearchResultDTO")
 public class SearchResultDTO {
+	@Id
+	private String id;
 	public String status;
 	public String message;
 	public int page_no;
