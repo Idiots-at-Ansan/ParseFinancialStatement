@@ -44,5 +44,10 @@ public class SearchResultController {
 		  
 		return modelAndView;
 	}
-	
+	@RequestMapping(value="borderView", method=RequestMethod.GET)
+	public String borderView(@ModelAttribute("rcept_no")String rcept_no) {
+		System.out.println(System.currentTimeMillis());
+		System.out.println(rcept_no);
+		return "borderView";
+	}
 }
