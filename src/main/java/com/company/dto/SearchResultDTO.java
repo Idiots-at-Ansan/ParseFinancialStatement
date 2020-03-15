@@ -31,23 +31,47 @@ public class SearchResultDTO {
 	public String getStatus() {
 		return status;
 	}
-	public int getPageNo() {
-		return page_no;
-	}
-	public int getPageCount() {
-		return page_count;
-	}
-	public int getTotalCount() {
-		return total_count;
-	}
-	public int getTotalPage() {
-		return total_page;
-	}
-	public ArrayList<SearchItem> getList(){
-		return list;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public String getMessage() {
 		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public int getPage_no() {
+		return page_no;
+	}
+	public void setPage_no(int page_no) {
+		this.page_no = page_no;
+	}
+	public int getPage_count() {
+		return page_count;
+	}
+	public void setPage_count(int page_count) {
+		this.page_count = page_count;
+	}
+	public int getTotal_count() {
+		return total_count;
+	}
+	public void setTotal_count(int total_count) {
+		this.total_count = total_count;
+	}
+	public int getTotal_page() {
+		return total_page;
+	}
+	public void setTotal_page(int total_page) {
+		this.total_page = total_page;
+	}
+	public ArrayList<SearchItem> getList() {
+		return list;
+	}
+	public void setList(ArrayList<SearchItem> list) {
+		this.list = list;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	@Override
 	public String toString() {

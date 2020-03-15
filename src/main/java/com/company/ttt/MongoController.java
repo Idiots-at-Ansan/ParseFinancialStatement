@@ -39,22 +39,4 @@ public class MongoController {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-	public String Insert_SearchResultDTO(SearchResultDTO obj) throws IOException, IllegalAccessException, NoSuchFieldException {
-		System.out.println(obj);
-		
-		MongoOperations mongoOps = (MongoOperations)mongoTemplate;
-		if (mongoOps == null)
-			System.out.print("mongoOps is null");
-		
-		mongoOps.save(obj);
-		//mongoTemplate.insert(obj, "SearchResultDTO");
-		//obj = mongoOps.findById(obj.getId(), SearchResultDTO.class);
-//		
-		//mongoOps.insert(obj,"0");
-		//Query query = new Query(Criteria.where("corp_name").is(obj.corp_name));
-		//mongoOps.updateFirst(query, Update.update("age",  26), user.class);
-		//obj = mongoOps.findOne(query, SearchResultDTO.class);
-		
-		return "test";
-	}
 }

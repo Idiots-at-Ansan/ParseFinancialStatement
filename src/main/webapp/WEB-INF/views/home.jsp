@@ -23,8 +23,6 @@
 		location.href = url;
 		console.log(url);
 	});
-		
-	
 </script>
 <body>
 
