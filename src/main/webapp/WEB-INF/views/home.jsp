@@ -54,7 +54,7 @@
 					<input type="date" class="form-control" id="dgn_de" name="dgn_de"/> ~ <input type="date" class="form-control" id="end_de" name="end_de" />
 				</div>
 				<div>
-					<input class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" value="Sign in"> 
+					<input class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" value="조회">
 				</div>
 			</form:form>
 		</div>
