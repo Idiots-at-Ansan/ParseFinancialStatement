@@ -35,7 +35,11 @@ public class SearchResultController {
 		modelAndView.setViewName("SearchResultView");
 		modelAndView.addObject("SearchResultDTO", searchResultDTO);
 		
+		ArrayList<SearchItem> result = searchResultDTO.getList();
 		//model.addAttribute("items", items);
+		
+		model.addAttribute("result", result);
+		
 		modelAndView.addObject("items", searchResultDTO.getList());
 		  
 		return modelAndView;

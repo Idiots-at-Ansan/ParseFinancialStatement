@@ -1,5 +1,4 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.company.dto.SearchItem" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,19 +8,31 @@
 <title>Insert title here</title>
 </head>
 <body>
-Test
-<%
-ArrayList<SearchItem> items = (ArrayList<SearchItem>)request.getAttribute("items");
-if (items != null){
-	for (int i = 0; i < items.size(); i++) {
-		%>
-		<%=items.get(i).corp_code %>, <br>
-		<%=items.get(i).corp_name %>, <br>
-		<%=items.get(i).stock_code %>, <br>
-		<%
-	}
-}
-%>
+<table>
+	<tr>
+		<th>corp_code</th>
+		<th>corp_name</th>
+		<th>stock_code</th>
+		<th>corp_cls</th>
+		<th>report_nm</th>
+		<th>rcept_no</th>
+		<th>flr_nm</th>
+		<th>rcept_dt</th>
+		<th>r</th>
+	</tr>
+	<c:forEach var="i" begin="0" end="${result.size()-1 }">
+		<tr>
+			<td><c:out value="${result.get(i).getCorp_code()}" /></td>
+			<td><c:out value="${result.get(i).getCorp_name()}" /></td>
+			<td><c:out value="${result.get(i).getStock_code()}" /></td>
+			<td><c:out value="${result.get(i).getCorp_cls()}" /></td>
+			<td><c:out value="${result.get(i).getReport_nm()}" /></td>
+			<td><c:out value="${result.get(i).getRcept_no()}" /></td>
+			<td><c:out value="${result.get(i).getFlr_nm()}" /></td>
+			<td><c:out value="${result.get(i).getRm()}" /></td>
+		</tr>
+	</c:forEach>
+</table>
 
 </body>
 </html>

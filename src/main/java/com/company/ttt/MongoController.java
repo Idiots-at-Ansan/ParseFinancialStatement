@@ -49,10 +49,7 @@ public class MongoController {
 		mongoOps.save(obj);
 		//mongoTemplate.insert(obj, "SearchResultDTO");
 		//obj = mongoOps.findById(obj.getId(), SearchResultDTO.class);
-		if (obj.corp_name == "No Data") {
-			System.out.println("Fail to insert SearchResultDTO object.");
-			return "test";
-		}
+//		
 		//mongoOps.insert(obj,"0");
 		//Query query = new Query(Criteria.where("corp_name").is(obj.corp_name));
 		//mongoOps.updateFirst(query, Update.update("age",  26), user.class);
