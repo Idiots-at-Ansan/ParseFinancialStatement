@@ -21,7 +21,7 @@
 		<th>r</th>
 	</tr>
 	<c:forEach var="i" begin="0" end="${result.size()-1 }">
-		<tr style = "cursor:pointer;" onclick="location.href='borderView?rcept_no=${result.get(i).getRcept_no()}'">
+		<tr style = "cursor:pointer;" onclick="location.href='download?rcept_no=${result.get(i).getRcept_no()}'">
 			<td><c:out value="${result.get(i).getCorp_code()}" /></td>
 			<td><c:out value="${result.get(i).getCorp_name()}" /></td>
 			<td><c:out value="${result.get(i).getStock_code()}" /></td>

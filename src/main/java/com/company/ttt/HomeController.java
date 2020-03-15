@@ -50,8 +50,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/download")
-	public String Download(Model model) throws ClientProtocolException, IOException {
-		ApiRequester.DownloadTest();
+	public String Download(@ModelAttribute("rcept_no")String rcept_no,Model model) throws ClientProtocolException, IOException {
+		ApiRequester.DownloadTest(rcept_no);
 		return "ForTest";
 	}
 }

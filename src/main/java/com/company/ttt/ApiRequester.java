@@ -32,7 +32,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.company.dto.SearchDTO;
 import com.company.dto.SearchItem;
 import com.company.dto.SearchResultDTO;
-import com.mysql.cj.mysqlx.protobuf.MysqlxConnection.Close;
 
 
 public class ApiRequester {
@@ -46,11 +45,13 @@ public class ApiRequester {
 	private static String api_search_uri = "https://opendart.fss.or.kr/api/list.json?" + api_key;
 	public static String test_api_search_uri = "https://opendart.fss.or.kr/api/list.json?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&corp_code=005930&bgn_de=20190101&end_de=20200117&last_reprt_at=Y&pblntf_ty=A&pblntf_detail_ty=A001&page_no=1&page_count=10";
 	// https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011
-	private static String api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?=" + api_key;// +																									// "&rcept_no=%s&reprt_code=%s";
+	private static String api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?" + api_key;// +																									// "&rcept_no=%s&reprt_code=%s";
 	public static String test_api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011";
 	
-	public static void DownloadTest() throws ClientProtocolException, IOException {
-		DownloadContent(test_api_get_xbrl_uri);
+	public static void DownloadTest(String rcept_no) throws ClientProtocolException, IOException {
+		
+		DownloadContent(api_get_xbrl_uri+"&rcept_no="+rcept_no);
+		System.out.println(api_get_xbrl_uri+"&rcept_no="+rcept_no);
 		System.out.println("done");
 	}
 	public static SearchResultDTO GetSearchResult (SearchDTO searchDTO, Model model) throws Exception {
