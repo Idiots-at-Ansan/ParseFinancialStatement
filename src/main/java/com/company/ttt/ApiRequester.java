@@ -1,12 +1,18 @@
 package com.company.ttt;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -26,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.company.dto.SearchDTO;
 import com.company.dto.SearchItem;
 import com.company.dto.SearchResultDTO;
+import com.mysql.cj.mysqlx.protobuf.MysqlxConnection.Close;
 
 
 public class ApiRequester {
@@ -42,7 +49,10 @@ public class ApiRequester {
 	private static String api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?=" + api_key;// +																									// "&rcept_no=%s&reprt_code=%s";
 	public static String test_api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011";
 	
-	
+	public static void DownloadTest() throws ClientProtocolException, IOException {
+		DownloadContent(test_api_get_xbrl_uri);
+		System.out.println("done");
+	}
 	public static SearchResultDTO GetSearchResult (SearchDTO searchDTO, Model model) throws Exception {
 		System.out.println("code : " + searchDTO.getCorp_code());
 		System.out.println("type : " + searchDTO.getPblntf_detail_ty());
@@ -64,7 +74,7 @@ public class ApiRequester {
 			url = url + "&pblntf_detail_ty=" + searchDTO.getPblntf_detail_ty();
 		
 		System.out.println(url);
-		String result_json = Requester(url);
+		String result_json = GetContents(url);
 		System.out.print(result_json);
 		JsonParser parser = new JsonParser();
 		SearchResultDTO result_obj = parser.test(result_json);
@@ -82,19 +92,11 @@ public class ApiRequester {
 		
 		return result_obj;
 	}
-
-	@RequestMapping(value="test")
-	public String test(@ModelAttribute("result_json")String result_json){
-		logger.info("Test");
-		System.out.println("-----------------"+result_json);
-		return "test";
-	}
 	
-	private static String Requester(String uri) throws ClientProtocolException, IOException {
-		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpGet httpGet = new HttpGet(uri);
-		httpGet.addHeader("User-Agent", "Mozila/5.0");
-		CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+	private static String GetContents(String uri) throws ClientProtocolException, IOException {
+		HttpManager httpManager = HttpManager.GetInstance();
+		CloseableHttpResponse httpResponse = httpManager.MakeResponse(uri);
+		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
 				httpResponse.getEntity().getContent()));
 		String inputLine;
@@ -103,10 +105,34 @@ public class ApiRequester {
 			response.append(inputLine);
 		}
 		reader.close();
-		httpClient.close();
-		//System.out.println(response.toString());
+		httpManager.DisposeHttpClient();
 		logger.info("test : "+response.toString());
 		return response.toString();
+	}
+	
+	private static void DownloadContent(String uri) throws ClientProtocolException, IOException {
+		HttpManager httpManager = HttpManager.GetInstance();
+		CloseableHttpResponse httpResponse = httpManager.MakeResponse(uri);
+		HttpEntity entity = httpResponse.getEntity();
+		int responseCode = httpResponse.getStatusLine().getStatusCode();
+		
+		InputStream is = entity.getContent();
+		String filePath = System.getProperty("user.dir") + "/tmpdownload";
+		File f = new File(filePath);
+		if (!f.exists())
+		{
+			f.mkdirs();
+		}
+		
+		filePath += "/" + System.currentTimeMillis() + ".zip";
+		FileOutputStream fos = new FileOutputStream(new File(filePath));
+		int inByte;
+		while ((inByte = is.read()) != -1) {
+			fos.write(inByte);
+		}
+		is.close();
+		fos.close();
+		httpManager.DisposeHttpClient();
 	}
 	
 }

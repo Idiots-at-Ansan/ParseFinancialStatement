@@ -1,5 +1,6 @@
 package com.company.ttt;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -11,6 +12,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -47,5 +49,9 @@ public class HomeController {
 		return searchResultController.SearchResultView(result_obj, model);
 	}
 	
-
+	@RequestMapping(value = "/download")
+	public String Download(Model model) throws ClientProtocolException, IOException {
+		ApiRequester.DownloadTest();
+		return "ForTest";
+	}
 }
