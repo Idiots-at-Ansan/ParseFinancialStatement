@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -51,16 +53,42 @@ public class HomeController {
 		return searchResultController.SearchResultView(result_obj, model);
 	}
 	
+	private String[] GetReportTypeFromReportNM(String report_nm) {
+		/*
+		    1분기보고서 : 11013
+			반기보고서 : 11012
+			3분기보고서 : 11014
+			사업보고서 : 11011
+		 */
+		String data = "분기보고서 (2019.09)";
+		data = data.replaceAll("[^\\d]","");
+		String year =  data.substring(0, 4);
+		int month = Integer.parseInt(data.substring(4, 6));
+		String type = "";
+		switch (month) {
+		case 3:
+			type = "11013";
+			break;
+		case 6:
+			type = "11012";
+			break;
+		case 9:
+			type = "11014";
+			break;
+		case 12:
+			type = "11011";
+			break;
+		default:
+			break;
+		}
+		String[] ret = {year, type};
+		return ret;
+	}
 	@RequestMapping(value = "/download")
-	public String Download(@ModelAttribute("rcept_no")String rcept_no,@ModelAttribute("report_nm")String report_nm,Model model) throws ClientProtocolException, IOException {
-//		ApiRequester.DownloadTest(rcept_no);
-//		String yyyy = report_nm.substring(6,10);
-//		System.out.println(yyyy);
-		System.out.println(report_nm.substring(7, 11));
-		System.out.println(report_nm.substring(12, 14));
-		
-		logger.info(rcept_no + report_nm);
-		logger.info("download Call..");
+	public String GetFinancialResult(@ModelAttribute("corp_code")String corp_code,@ModelAttribute("report_nm")String report_nm, Model model) throws ClientProtocolException, IOException {
+	//public String Download(String corp_code,Model model) throws ClientProtocolException, IOException {
+		String[] value = GetReportTypeFromReportNM(report_nm);
+		ApiRequester.DownloadTest(corp_code, value[0], value[1]);
 		return "ForTest";
 	}
 }
