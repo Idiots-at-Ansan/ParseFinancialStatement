@@ -1,16 +1,6 @@
 package com.company.ttt;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -20,15 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.company.dto.FinancialDTO;
 import com.company.dto.SearchDTO;
-import com.company.dto.SearchItem;
 import com.company.dto.SearchResultDTO;
-import javax.servlet.http.*;
 //import com.company.ttt.service.HomeService;
 /**
  * Handles requests for the application home page.
@@ -85,10 +73,10 @@ public class HomeController {
 		return ret;
 	}
 	@RequestMapping(value = "/download")
-	public String GetFinancialResult(@ModelAttribute("corp_code")String corp_code,@ModelAttribute("report_nm")String report_nm, Model model) throws ClientProtocolException, IOException {
+	public ModelAndView GetFinancialResult(@ModelAttribute("corp_code")String corp_code,@ModelAttribute("report_nm")String report_nm, Model model) throws ClientProtocolException, IOException {
 	//public String Download(String corp_code,Model model) throws ClientProtocolException, IOException {
 		String[] value = GetReportTypeFromReportNM(report_nm);
-		ApiRequester.DownloadTest(corp_code, value[0], value[1]);
-		return "ForTest";
+		FinancialDTO result_obj = ApiRequester.DownloadTest(corp_code, value[0], value[1]);
+		return financialResultController.FinancialResultView(result_obj, model);
 	}
 }
