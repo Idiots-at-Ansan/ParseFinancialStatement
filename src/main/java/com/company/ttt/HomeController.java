@@ -16,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.company.dto.FinancialDTO;
 import com.company.dto.SearchDTO;
+import com.company.dto.SearchItem;
 import com.company.dto.SearchResultDTO;
+import javax.servlet.http.*;
 //import com.company.ttt.service.HomeService;
 /**
  * Handles requests for the application home page.
@@ -48,8 +50,8 @@ public class HomeController {
 			3분기보고서 : 11014
 			사업보고서 : 11011
 		 */
-		String data = "분기보고서 (2019.09)";
-		data = data.replaceAll("[^\\d]","");
+		String data = "";
+		data = report_nm.replaceAll("[^\\d]","");
 		String year =  data.substring(0, 4);
 		int month = Integer.parseInt(data.substring(4, 6));
 		String type = "";
@@ -76,7 +78,7 @@ public class HomeController {
 	public ModelAndView GetFinancialResult(@ModelAttribute("corp_code")String corp_code,@ModelAttribute("report_nm")String report_nm, Model model) throws ClientProtocolException, IOException {
 	//public String Download(String corp_code,Model model) throws ClientProtocolException, IOException {
 		String[] value = GetReportTypeFromReportNM(report_nm);
-		FinancialDTO result_obj = ApiRequester.DownloadTest(corp_code, value[0], value[1]);
+		FinancialDTO result_obj = ApiRequester.GetFinancial(corp_code, value[0], value[1]);
 		return financialResultController.FinancialResultView(result_obj, model);
 	}
 }

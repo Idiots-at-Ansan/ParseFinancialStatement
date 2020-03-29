@@ -8,13 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<c:out value="${result.get(i).getSj_nm() }"/>
 <c:forEach var="i" begin="0" end="${result.size()-1 }">
-	<c:out value="${result.get(i).getSj_nm() }"/>
+<c:if test="${result.get(i).getSj_nm() eq '재무상태표' }">
 	<c:out value="${result.get(i).getThstrm_nm()}"/>
 	<c:out value="${result.get(i).getAccount_nm()}"/>
+	<c:out value="${result.get(i).getAccount_detail() }"/>
 	<c:out value="${result.get(i).getThstrm_amount() }"/>
 	<br>
-</c:forEach>>
+</c:if>
+</c:forEach>
 </body>
 </html>

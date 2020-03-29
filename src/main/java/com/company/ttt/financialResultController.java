@@ -28,7 +28,14 @@ public class financialResultController{
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("financialResultView");
 		modelAndView.addObject("FinancialDTO",finacialDTO);
-		ArrayList<FinaccialResultDTO> result = finacialDTO.getList();
+		ArrayList<FinancialResultDTO> result = new ArrayList<FinancialResultDTO>();
+		
+		for (FinancialResultDTO result_i : finacialDTO.getList()) {
+			
+			if (result_i.getAccount_detail().contains("연결") || result_i.getAccount_detail().contains("-")) {
+				result.add(result_i);
+			}
+		}
 		model.addAttribute("result", result);
 		modelAndView.addObject("items", finacialDTO.getList());
 		return modelAndView;

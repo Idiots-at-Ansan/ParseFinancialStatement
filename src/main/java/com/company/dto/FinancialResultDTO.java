@@ -1,6 +1,6 @@
 package com.company.dto;
 
-public class FinaccialResultDTO {
+public class FinancialResultDTO {
 	
 	private String rcept_no;
 	private String reprt_code;

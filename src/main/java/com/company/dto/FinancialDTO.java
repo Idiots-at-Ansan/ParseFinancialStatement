@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class FinancialDTO {
 	private String status;
 	private String message;
-	private ArrayList<FinaccialResultDTO> list;
+	private ArrayList<FinancialResultDTO> list;
 	public String getStatus() {
 		return status;
 	}
@@ -18,10 +18,10 @@ public class FinancialDTO {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public ArrayList<FinaccialResultDTO> getList() {
+	public ArrayList<FinancialResultDTO> getList() {
 		return list;
 	}
-	public void setList(ArrayList<FinaccialResultDTO> list) {
+	public void setList(ArrayList<FinancialResultDTO> list) {
 		this.list = list;
 	}
 	
