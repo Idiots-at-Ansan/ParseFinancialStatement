@@ -47,12 +47,14 @@ public class ApiRequester {
 	// https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011
 	private static String api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?" + api_key;// +																									// "&rcept_no=%s&reprt_code=%s";
 	public static String test_api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011";
+	private static String api_get_financialdata_uri = "https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json?" + api_key;
 	
-	public static void DownloadTest(String rcept_no) throws ClientProtocolException, IOException {
-		
-		DownloadContent(api_get_xbrl_uri+"&rcept_no="+rcept_no);
-		System.out.println(api_get_xbrl_uri+"&rcept_no="+rcept_no);
-		System.out.println("done");
+	public static void DownloadTest(String corp_code, String year, String type) throws ClientProtocolException, IOException {
+		//https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json?crtfc_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&corp_code=00356370&bsns_year=2018&reprt_code=11011&fs_div=OFS
+		String uri = api_get_financialdata_uri + "&corp_code=" + corp_code + "&bsns_year=" + year + "&reprt_code=" + type + "&fs_div=CFS";
+		String testVal = GetContents(uri);
+		System.out.println(testVal);
+		return;
 	}
 	public static SearchResultDTO GetSearchResult (SearchDTO searchDTO, Model model) throws Exception {
 		System.out.println("code : " + searchDTO.getCorp_code());
