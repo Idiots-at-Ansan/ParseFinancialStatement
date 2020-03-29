@@ -45,14 +45,12 @@ public class ApiRequester {
 	private static String api_search_uri = "https://opendart.fss.or.kr/api/list.json?" + api_key;
 	public static String test_api_search_uri = "https://opendart.fss.or.kr/api/list.json?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&corp_code=005930&bgn_de=20190101&end_de=20200117&last_reprt_at=Y&pblntf_ty=A&pblntf_detail_ty=A001&page_no=1&page_count=10";
 	// https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011
-	private static String api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?" + api_key;// +																									// "&rcept_no=%s&reprt_code=%s";
-	public static String test_api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011";
-	
+//	private static String api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?" + api_key;// +																									// "&rcept_no=%s&reprt_code=%s";
+//	public static String test_api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011";
+//	
 	public static void DownloadTest(String rcept_no) throws ClientProtocolException, IOException {
 		
-		DownloadContent(api_get_xbrl_uri+"&rcept_no="+rcept_no);
-		System.out.println(api_get_xbrl_uri+"&rcept_no="+rcept_no);
-		System.out.println("done");
+		
 	}
 	public static SearchResultDTO GetSearchResult (SearchDTO searchDTO, Model model) throws Exception {
 		System.out.println("code : " + searchDTO.getCorp_code());
@@ -111,29 +109,29 @@ public class ApiRequester {
 		return response.toString();
 	}
 	
-	private static void DownloadContent(String uri) throws ClientProtocolException, IOException {
-		HttpManager httpManager = HttpManager.GetInstance();
-		CloseableHttpResponse httpResponse = httpManager.MakeResponse(uri);
-		HttpEntity entity = httpResponse.getEntity();
-		int responseCode = httpResponse.getStatusLine().getStatusCode();
-		
-		InputStream is = entity.getContent();
-		String filePath = System.getProperty("user.dir") + "/tmpdownload";
-		File f = new File(filePath);
-		if (!f.exists())
-		{
-			f.mkdirs();
-		}
-		
-		filePath += "/" + System.currentTimeMillis() + ".zip";
-		FileOutputStream fos = new FileOutputStream(new File(filePath));
-		int inByte;
-		while ((inByte = is.read()) != -1) {
-			fos.write(inByte);
-		}
-		is.close();
-		fos.close();
-		httpManager.DisposeHttpClient();
-	}
+//	private static void DownloadContent(String uri) throws ClientProtocolException, IOException {
+//		HttpManager httpManager = HttpManager.GetInstance();
+//		CloseableHttpResponse httpResponse = httpManager.MakeResponse(uri);
+//		HttpEntity entity = httpResponse.getEntity();
+//		int responseCode = httpResponse.getStatusLine().getStatusCode();
+//		
+//		InputStream is = entity.getContent();
+//		String filePath = System.getProperty("user.dir") + "/tmpdownload";
+//		File f = new File(filePath);
+//		if (!f.exists())
+//		{
+//			f.mkdirs();
+//		}
+//		
+//		filePath += "/" + System.currentTimeMillis() + ".zip";
+//		FileOutputStream fos = new FileOutputStream(new File(filePath));
+//		int inByte;
+//		while ((inByte = is.read()) != -1) {
+//			fos.write(inByte);
+//		}
+//		is.close();
+//		fos.close();
+//		httpManager.DisposeHttpClient();
+//	}
 	
 }

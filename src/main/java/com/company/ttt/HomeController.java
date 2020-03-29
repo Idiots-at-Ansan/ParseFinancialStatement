@@ -40,18 +40,27 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(@ModelAttribute("searchDTO")SearchDTO searchDTO, Model model) throws Exception {
+		logger.info("Start");
 		return "home";
 	}
 	
 	@RequestMapping(value = "/getList")
 	public ModelAndView GetResult(@ModelAttribute("searchDTO")SearchDTO searchDTO,Model model) throws Exception {
 		SearchResultDTO result_obj = ApiRequester.GetSearchResult(searchDTO, model);
+		logger.info("getList Call..");
 		return searchResultController.SearchResultView(result_obj, model);
 	}
 	
 	@RequestMapping(value = "/download")
-	public String Download(@ModelAttribute("rcept_no")String rcept_no,Model model) throws ClientProtocolException, IOException {
-		ApiRequester.DownloadTest(rcept_no);
+	public String Download(@ModelAttribute("rcept_no")String rcept_no,@ModelAttribute("report_nm")String report_nm,Model model) throws ClientProtocolException, IOException {
+//		ApiRequester.DownloadTest(rcept_no);
+//		String yyyy = report_nm.substring(6,10);
+//		System.out.println(yyyy);
+		System.out.println(report_nm.substring(7, 11));
+		System.out.println(report_nm.substring(12, 14));
+		
+		logger.info(rcept_no + report_nm);
+		logger.info("download Call..");
 		return "ForTest";
 	}
 }
