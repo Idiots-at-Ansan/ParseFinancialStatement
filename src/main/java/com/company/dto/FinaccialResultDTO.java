@@ -13,9 +13,38 @@ public class FinaccialResultDTO {
 	private String account_detail;
 	private String thstrm_nm;
 	private String thstrm_amount;
+	private String thstrm_add_amount;
 	private String frmtrm_nm;
 	private String frmtrm_amount;
+	private String frmtrm_add_amount;
+	private String frmtrm_q_nm;
+	private String frmtrm_q_amount;
 	private String ord;
+	public String getThstrm_add_amount() {
+		return thstrm_add_amount;
+	}
+	public void setThstrm_add_amount(String thstrm_add_amount) {
+		this.thstrm_add_amount = thstrm_add_amount;
+	}
+	public String getFrmtrm_add_amount() {
+		return frmtrm_add_amount;
+	}
+	public void setFrmtrm_add_amount(String frmtrm_add_amount) {
+		this.frmtrm_add_amount = frmtrm_add_amount;
+	}
+	public String getFrmtrm_q_nm() {
+		return frmtrm_q_nm;
+	}
+	public void setFrmtrm_q_nm(String frmtrm_q_nm) {
+		this.frmtrm_q_nm = frmtrm_q_nm;
+	}
+	public String getFrmtrm_q_amount() {
+		return frmtrm_q_amount;
+	}
+	public void setFrmtrm_q_amount(String frmtrm_q_amount) {
+		this.frmtrm_q_amount = frmtrm_q_amount;
+	}
+	
 	public String getRcept_no() {
 		return rcept_no;
 	}

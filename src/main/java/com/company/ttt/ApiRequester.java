@@ -1,36 +1,22 @@
 package com.company.ttt;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 import javax.inject.Inject;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.company.dto.FinaccialResultDTO;
+import com.company.dto.FinancialDTO;
 import com.company.dto.SearchDTO;
-import com.company.dto.SearchItem;
 import com.company.dto.SearchResultDTO;
 
 
@@ -38,6 +24,9 @@ public class ApiRequester {
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
+	
+	@Inject
+	private static JsonParser parser = new JsonParser();
 	
 	private static final Logger logger = LoggerFactory.getLogger(ApiRequester.class);
 	
@@ -49,12 +38,15 @@ public class ApiRequester {
 	public static String test_api_get_xbrl_uri = "https://opendart.fss.or.kr/api/fnlttXbrl.xml?crtfc_key=2dbd19cc94394f79a0f7c17c1efad4a9c20b79ff&rcept_no=20190401004781&reprt_code=11011";
 	private static String api_get_financialdata_uri = "https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json?" + api_key;
 	
-	public static void DownloadTest(String corp_code, String year, String type) throws ClientProtocolException, IOException {
+	public static FinancialDTO DownloadTest(String corp_code, String year, String type) throws ClientProtocolException, IOException {
 		//https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json?crtfc_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&corp_code=00356370&bsns_year=2018&reprt_code=11011&fs_div=OFS
 		String uri = api_get_financialdata_uri + "&corp_code=" + corp_code + "&bsns_year=" + year + "&reprt_code=" + type + "&fs_div=CFS";
 		String testVal = GetContents(uri);
 		System.out.println(testVal);
-		return;
+
+		FinancialDTO result_obj = parser.FinancialResultDTOFromJSON(testVal);
+		
+		return result_obj;
 	}
 	public static SearchResultDTO GetSearchResult (SearchDTO searchDTO, Model model) throws Exception {
 		System.out.println("code : " + searchDTO.getCorp_code());
@@ -79,8 +71,8 @@ public class ApiRequester {
 		System.out.println(url);
 		String result_json = GetContents(url);
 		System.out.print(result_json);
-		JsonParser parser = new JsonParser();
-		SearchResultDTO result_obj = parser.test(result_json);
+		
+		SearchResultDTO result_obj = parser.MakeSearchResultDTOFromJSON(result_json);
 		
 		
 		/*
